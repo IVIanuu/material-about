@@ -18,25 +18,23 @@ package com.ivianuu.materialabout
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyController
-import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import kotlinx.android.synthetic.main.item_about_list_card.*
+import kotlinx.android.synthetic.main.item_about_card.*
 import java.util.*
 
 /**
  * About card list model
  */
-class AboutCardListModel(
+class AboutCardModel(
     private val title: CharSequence? =  null,
     private val titleRes: Int = 0,
     private val modelBuilder: ModelBuilder? = null
-) : EpoxyModelWithHolder<AboutCardListModel.Holder>() {
+) : EpoxyModelWithHolder<AboutCardModel.Holder>() {
 
     init {
         id(UUID.randomUUID().toString())
-        layout(R.layout.item_about_list_card)
+        layout(R.layout.item_about_card)
     }
 
     override fun bind(holder: Holder) {
@@ -69,7 +67,7 @@ class AboutCardListModel(
         }
     }
 
-    override fun getDefaultLayout() = R.layout.item_about_list_card
+    override fun getDefaultLayout() = R.layout.item_about_card
 
     override fun createNewHolder() = Holder()
 
@@ -116,7 +114,7 @@ class AboutCardListModel(
             }
         }
 
-        fun build() = AboutCardListModel(
+        fun build() = AboutCardModel(
             title, titleRes, modelBuilder
         )
     }
@@ -135,8 +133,8 @@ class AboutCardListModel(
     }
 }
 
-fun EpoxyController.aboutCardList(init: AboutCardListModel.Builder.() -> Unit) =
-        AboutCardListModel.Builder()
+fun EpoxyController.aboutCard(init: AboutCardModel.Builder.() -> Unit) =
+    AboutCardModel.Builder()
             .apply(init)
             .build()
             .also { it.addTo(this) }

@@ -16,7 +16,9 @@
 
 package com.ivianuu.materialabout
 
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyModelWithHolder
@@ -33,6 +35,9 @@ class AboutTitleModel(
     private val descRes: Int = 0,
     private val icon: Drawable? = null,
     private val iconRes: Int = 0,
+    private val iconColor: Int = 0,
+    private val iconColorRes: Int = 0,
+    private val tintIcon: Boolean = true,
     private val clickAction: AboutClickAction? = null,
     private val longClickAction: AboutClickAction? = null
 ) : EpoxyModelWithHolder<AboutEpoxyHolder>() {
@@ -91,6 +96,29 @@ class AboutTitleModel(
                 else -> item_image.visibility = View.GONE
             }
 
+            if (tintIcon) {
+                when {
+                    iconColor != 0 -> {
+                        item_image.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
+                    }
+                    iconColorRes != 0 -> {
+                        item_image.setColorFilter(
+                            ContextCompat.getColor(containerView.context, iconColorRes),
+                            PorterDuff.Mode.SRC_IN
+                        )
+                    }
+                    else -> {
+                        val ta =
+                            containerView.context.obtainStyledAttributes(intArrayOf(android.R.attr.textColorSecondary))
+                        val color = ta.getColor(0, 0)
+                        ta.recycle()
+                        item_image.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+                    }
+                }
+            } else {
+                item_image.clearColorFilter()
+            }
+
             val clickAction = clickAction
             if (clickAction != null) {
                 containerView.setOnClickListener { clickAction.onClick() }
@@ -129,6 +157,9 @@ class AboutTitleModel(
         private var descRes = 0
         private var icon: Drawable? = null
         private var iconRes = 0
+        private var iconColor = 0
+        private var iconColorRes = 0
+        private var tintIcon = true
         private var clickAction: AboutClickAction? = null
         private var longClickAction: AboutClickAction? = null
 
@@ -156,6 +187,18 @@ class AboutTitleModel(
             this.iconRes = iconRes
         }
 
+        fun iconColor(iconColor: Int) {
+            this.iconColor = iconColor
+        }
+
+        fun iconColorRes(iconColorRes: Int) {
+            this.iconColorRes = iconColorRes
+        }
+
+        fun tintIcon(tintIcon: Boolean) {
+            this.tintIcon = tintIcon
+        }
+
         fun clickAction(clickAction: AboutClickAction?) {
             this.clickAction = clickAction
         }
@@ -181,7 +224,9 @@ class AboutTitleModel(
         }
 
         fun build() = AboutTitleModel(
-            title, titleRes, desc, descRes, icon, iconRes, clickAction, longClickAction
+            title, titleRes, desc, descRes, icon, iconRes,
+            iconColor, iconColorRes, tintIcon,
+            clickAction, longClickAction
         )
     }
 }

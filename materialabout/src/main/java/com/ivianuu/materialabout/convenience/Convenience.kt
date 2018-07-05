@@ -25,27 +25,37 @@ import com.ivianuu.materialabout.AboutTitleModel
 import com.ivianuu.materialabout.aboutAction
 import com.ivianuu.materialabout.aboutTitle
 
-fun EpoxyController.appTitle(appName: CharSequence, applicationIcon: Drawable) {
+fun EpoxyController.appTitle(
+    appName: CharSequence,
+    applicationIcon: Drawable,
+    init: (AboutTitleModel.Builder.() -> Unit)? = null
+) {
     aboutTitle {
         title(appName)
         icon(applicationIcon)
+        tintIcon(false)
+        init?.invoke(this)
     }
 }
 
-fun EpoxyController.appTitle(context: Context) {
+fun EpoxyController.appTitle(
+    context: Context,
+    init: (AboutTitleModel.Builder.() -> Unit)? = null
+) {
     val applicationContext = context.applicationContext
     val packageManager = applicationContext.packageManager
     val applicationInfo = applicationContext.applicationInfo
     val appName = packageManager.getApplicationLabel(applicationInfo) ?: ""
     val applicationIcon = packageManager.getApplicationIcon(applicationInfo)
-    appTitle(appName, applicationIcon)
+    appTitle(appName, applicationIcon, init)
 }
 
 fun EpoxyController.versionAction(
     context: Context,
     text: String? = null,
     icon: Drawable? = null,
-    includeVersionCode: Boolean = true
+    includeVersionCode: Boolean = true,
+    init: (AboutActionModel.Builder.() -> Unit)? = null
 ) {
     var versionName = ""
     var versionCode = 0
@@ -61,6 +71,7 @@ fun EpoxyController.versionAction(
         text(text)
         subText(versionName + if (includeVersionCode) " ($versionCode)" else "")
         icon(icon)
+        init?.invoke(this)
     }
 }
 

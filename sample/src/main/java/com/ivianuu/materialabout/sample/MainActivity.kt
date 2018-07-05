@@ -16,14 +16,13 @@
 
 package com.ivianuu.materialabout.sample
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.ivianuu.materialabout.aboutAction
-import com.ivianuu.materialabout.aboutCardList
+import com.ivianuu.materialabout.aboutCard
 import com.ivianuu.materialabout.convenience.appTitle
 import com.ivianuu.materialabout.convenience.rateClickListener
 import com.ivianuu.materialabout.convenience.versionAction
@@ -36,8 +35,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         list.buildModelsWith2 {
+            aboutCard {
+                models {
+                    appTitle(this@MainActivity)
+                    versionAction(this@MainActivity)
+                }
+            }
+
+            aboutCard {
+                models {
+                    aboutAction {
+                        text("Manuel Wrage")
+                        subText("Ostfildern, Germany")
+                    }
+
+                    aboutAction {
+                        text("Write an Email")
+                    }
+                }
+            }
+
             for (i in 0 until 100) {
-                aboutCardList {
+                aboutCard {
                     models {
                         appTitle(this@MainActivity)
 
