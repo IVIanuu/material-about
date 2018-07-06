@@ -16,7 +16,6 @@
 
 package com.ivianuu.materialabout
 
-import android.support.annotation.CallSuper
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder
 import kotlinx.android.extensions.LayoutContainer

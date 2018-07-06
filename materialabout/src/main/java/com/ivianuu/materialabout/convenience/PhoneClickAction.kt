@@ -17,10 +17,18 @@
 package com.ivianuu.materialabout.convenience
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
 /**
- * Rate click action
+ * @author Manuel Wrage (IVIanuu)
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+open class PhoneClickAction(
+    context: Context,
+    number: String
+) : IntentClickAction(
+    context,
+    Intent(Intent.ACTION_DIAL).apply {
+        data = Uri.parse("tel:$number")
+    }
+)

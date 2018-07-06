@@ -17,10 +17,22 @@
 package com.ivianuu.materialabout.convenience
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
 /**
- * Rate click action
+ * Email click action
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+open class EmailClickAction(
+    context: Context,
+    email: String,
+    subject: String? = null,
+    chooserTitle: CharSequence? = null
+) : IntentClickAction(
+    context,
+    Intent.createChooser(
+        Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email")).apply {
+            subject.let { putExtra(Intent.EXTRA_SUBJECT, it) }
+        }, chooserTitle
+    )
+)

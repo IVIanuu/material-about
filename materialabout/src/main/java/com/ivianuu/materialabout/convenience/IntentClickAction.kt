@@ -17,10 +17,18 @@
 package com.ivianuu.materialabout.convenience
 
 import android.content.Context
+import android.content.Intent
+import com.ivianuu.materialabout.AboutClickAction
 
 /**
- * Rate click action
+ * Intent click action
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+open class IntentClickAction(
+    private val context: Context,
+    private val intent: Intent
+) : AboutClickAction {
+
+    override fun onClick() {
+        context.startActivity(intent)
+    }
+}

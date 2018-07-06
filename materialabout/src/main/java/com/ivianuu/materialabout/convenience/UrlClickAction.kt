@@ -17,10 +17,14 @@
 package com.ivianuu.materialabout.convenience
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
 /**
- * Rate click action
+ * Url click action
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+open class UrlClickAction(context: Context, url: String) : IntentClickAction(
+    context, Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url)
+    }
+)

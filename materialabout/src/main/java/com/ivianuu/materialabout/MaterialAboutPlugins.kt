@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 
-package com.ivianuu.materialabout.convenience
-
-import android.content.Context
+package com.ivianuu.materialabout
 
 /**
- * Rate click action
+ * Material about plugins
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+object MaterialAboutPlugins {
+
+    private val iconLoaders = mutableSetOf<AboutIconLoader>()
+
+    init {
+        addIconLoader(DefaultAboutIconLoader())
+    }
+
+    fun addIconLoader(iconLoader: AboutIconLoader) {
+        iconLoaders.add(iconLoader)
+    }
+
+    fun removeIconLoader(iconLoader: AboutIconLoader) {
+        iconLoaders.remove(iconLoader)
+    }
+
+    fun getIconLoader(icon: Any) =
+        iconLoaders.firstOrNull { it.canHandle(icon) }
+
+}

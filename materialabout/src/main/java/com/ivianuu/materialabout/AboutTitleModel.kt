@@ -17,7 +17,6 @@
 package com.ivianuu.materialabout
 
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
@@ -33,8 +32,7 @@ class AboutTitleModel(
     private val titleRes: Int = 0,
     private val desc: CharSequence? = null,
     private val descRes: Int = 0,
-    private val icon: Drawable? = null,
-    private val iconRes: Int = 0,
+    private val icon: Any? = null,
     private val iconColor: Int = 0,
     private val iconColorRes: Int = 0,
     private val tintIcon: Boolean = true,
@@ -84,17 +82,17 @@ class AboutTitleModel(
                 }
             }
 
-            when {
-                icon != null -> {
-                    item_image.visibility = View.VISIBLE
-                    item_image.setImageDrawable(icon)
-                }
-                iconRes != 0 -> {
-                    item_image.visibility = View.VISIBLE
-                    item_image.setImageResource(iconRes)
-                }
-                else -> item_image.visibility = View.GONE
+            val icon = icon
+            if (icon != null) {
+                item_image.visibility = View.VISIBLE
+
+                val iconLoader = MaterialAboutPlugins.getIconLoader(icon)
+                        ?: throw IllegalStateException("no icon loader found for $icon")
+                iconLoader.loadIcon(icon, item_image)
+            } else {
+                item_image.visibility = View.GONE
             }
+
 
             if (tintIcon) {
                 when {
@@ -135,6 +133,10 @@ class AboutTitleModel(
             } else {
                 containerView.setOnLongClickListener(null)
             }
+
+            val clicksAllowed = clickAction != null || longClickAction != null
+            containerView.isClickable = clicksAllowed
+            containerView.isFocusable = clicksAllowed
         }
     }
 
@@ -155,8 +157,7 @@ class AboutTitleModel(
         private var titleRes = 0
         private var desc: CharSequence? = null
         private var descRes = 0
-        private var icon: Drawable? = null
-        private var iconRes = 0
+        private var icon: Any? = null
         private var iconColor = 0
         private var iconColorRes = 0
         private var tintIcon = true
@@ -179,12 +180,8 @@ class AboutTitleModel(
             this.descRes = descRes
         }
 
-        fun icon(icon: Drawable?) {
+        fun icon(icon: Any?) {
             this.icon = icon
-        }
-
-        fun iconRes(iconRes: Int) {
-            this.iconRes = iconRes
         }
 
         fun iconColor(iconColor: Int) {
@@ -224,7 +221,7 @@ class AboutTitleModel(
         }
 
         fun build() = AboutTitleModel(
-            title, titleRes, desc, descRes, icon, iconRes,
+            title, titleRes, desc, descRes, icon,
             iconColor, iconColorRes, tintIcon,
             clickAction, longClickAction
         )

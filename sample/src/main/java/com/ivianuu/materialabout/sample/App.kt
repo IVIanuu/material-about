@@ -14,13 +14,27 @@
  * limitations under the License.
  */
 
-package com.ivianuu.materialabout.convenience
+package com.ivianuu.materialabout.sample
 
-import android.content.Context
+import android.app.Application
+import com.bumptech.glide.request.RequestOptions
+import com.ivianuu.materialabout.MaterialAboutPlugins
+import com.ivianuu.materialabout.glide.GlideAboutIconLoader
 
 /**
- * Rate click action
+ * @author Manuel Wrage (IVIanuu)
  */
-class RateClickAction(
-    context: Context
-) : UrlClickAction(context, "http://play.google.com/store/apps/details?id=${context.packageName}")
+class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        MaterialAboutPlugins.addIconLoader(
+            GlideAboutIconLoader(
+                RequestOptions()
+                    .circleCrop()
+            )
+        )
+    }
+
+}

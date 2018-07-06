@@ -17,6 +17,7 @@
 package com.ivianuu.materialabout.convenience
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import com.airbnb.epoxy.EpoxyController
@@ -75,10 +76,51 @@ fun EpoxyController.versionAction(
     }
 }
 
-fun AboutActionModel.Builder.rateClickListener(context: Context) {
+fun AboutActionModel.Builder.intentClickAction(context: Context, intent: Intent) {
+    clickAction(IntentClickAction(context, intent))
+}
+
+fun AboutActionModel.Builder.urlClickAction(context: Context, url: String) {
+    clickAction(UrlClickAction(context, url))
+}
+
+fun AboutActionModel.Builder.rateClickAction(context: Context) {
     clickAction(RateClickAction(context))
 }
 
-fun AboutTitleModel.Builder.rateClickListener(context: Context) {
+fun AboutTitleModel.Builder.emailClickAction(
+    context: Context,
+    email: String,
+    subject: String? = null,
+    chooserTitle: String? = null
+) {
+    clickAction(EmailClickAction(context, email, subject, chooserTitle))
+}
+
+fun AboutTitleModel.Builder.intentClickAction(context: Context, intent: Intent) {
+    clickAction(IntentClickAction(context, intent))
+}
+
+fun AboutTitleModel.Builder.urlClickAction(context: Context, url: String) {
+    clickAction(UrlClickAction(context, url))
+}
+
+fun AboutTitleModel.Builder.rateClickAction(context: Context) {
     clickAction(RateClickAction(context))
+}
+
+fun AboutActionModel.Builder.emailClickAction(
+    context: Context,
+    email: String,
+    subject: String? = null,
+    chooserTitle: String? = null
+) {
+    clickAction(EmailClickAction(context, email, subject, chooserTitle))
+}
+
+fun AboutActionModel.Builder.phoneClickAction(
+    context: Context,
+    number: String
+) {
+    clickAction(PhoneClickAction(context, number))
 }

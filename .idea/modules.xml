@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/buildSrc/buildSrc.iml" filepath="$PROJECT_DIR$/buildSrc/buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/material-about.iml" filepath="$PROJECT_DIR$/material-about.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialabout/materialabout.iml" filepath="$PROJECT_DIR$/materialabout/materialabout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/materialabout-glide/materialabout-glide.iml" filepath="$PROJECT_DIR$/materialabout-glide/materialabout-glide.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
