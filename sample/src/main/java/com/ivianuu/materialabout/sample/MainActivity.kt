@@ -66,6 +66,48 @@ class MainActivity : AppCompatActivity() {
                         icon(R.drawable.ic_github)
                         urlClickAction(this@MainActivity, "https://github.com/IVIanuu/")
                     }
+                    aboutAction {
+                        text("View on Google Play")
+                        icon(R.drawable.ic_shop)
+                        urlClickAction(
+                            this@MainActivity,
+                            "https://play.google.com/store/apps/dev?id=5217822728779774672"
+                        )
+                    }
+                }
+            }
+
+            aboutCard {
+                title("Support Development")
+
+                models {
+                    aboutAction {
+                        text("Join the Google Plus Community")
+                        subText(
+                            "If you need help or have questions, the ${application.applicationInfo.loadLabel(
+                                packageManager
+                            )} community on Google Plus is a good place to go."
+                        )
+                        icon(R.drawable.ic_google_plus_circles)
+                        urlClickAction(
+                            this@MainActivity,
+                            ""
+                        )
+                    }
+
+                    aboutAction {
+                        text("Rate")
+                        subText(
+                            "Leave a positive rating on Google Play if you like ${application.applicationInfo.loadLabel(
+                                packageManager
+                            )}."
+                        )
+                        icon(R.drawable.ic_star)
+                        urlClickAction(
+                            this@MainActivity,
+                            "https://play.google.com/store/apps/details?id=$packageName"
+                        )
+                    }
                 }
             }
 

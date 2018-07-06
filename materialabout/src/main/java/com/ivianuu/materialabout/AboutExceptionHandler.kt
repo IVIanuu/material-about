@@ -17,27 +17,14 @@
 package com.ivianuu.materialabout
 
 /**
- * Material about plugins
+ * Handles exceptions that might occur
  */
-object MaterialAboutPlugins {
+interface AboutExceptionHandler {
+    fun onException(e: Exception)
+}
 
-    var exceptionHandler: AboutExceptionHandler = DefaultAboutExceptionHandler()
-
-    private val iconLoaders = mutableSetOf<AboutIconLoader>()
-
-    init {
-        addIconLoader(DefaultAboutIconLoader())
+class DefaultAboutExceptionHandler : AboutExceptionHandler {
+    override fun onException(e: Exception) {
+        throw RuntimeException(e)
     }
-
-    fun addIconLoader(iconLoader: AboutIconLoader) {
-        iconLoaders.add(iconLoader)
-    }
-
-    fun removeIconLoader(iconLoader: AboutIconLoader) {
-        iconLoaders.remove(iconLoader)
-    }
-
-    fun getIconLoader(icon: Any) =
-        iconLoaders.firstOrNull { it.canHandle(icon) }
-
 }

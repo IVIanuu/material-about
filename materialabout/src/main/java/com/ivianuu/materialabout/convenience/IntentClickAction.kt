@@ -19,6 +19,7 @@ package com.ivianuu.materialabout.convenience
 import android.content.Context
 import android.content.Intent
 import com.ivianuu.materialabout.AboutClickAction
+import com.ivianuu.materialabout.MaterialAboutPlugins
 
 /**
  * Intent click action
@@ -29,6 +30,10 @@ open class IntentClickAction(
 ) : AboutClickAction {
 
     override fun onClick() {
-        context.startActivity(intent)
+        try {
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            MaterialAboutPlugins.exceptionHandler.onException(e)
+        }
     }
 }
