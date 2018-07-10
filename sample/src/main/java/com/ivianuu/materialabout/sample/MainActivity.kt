@@ -39,6 +39,11 @@ class MainActivity : AppCompatActivity() {
                     versionAction(this@MainActivity, "Version") {
                         icon(R.drawable.ic_info)
                     }
+
+                    aboutAction {
+                        text("Changelog")
+                        icon(R.drawable.ic_history)
+                    }
                 }
             }
 
@@ -107,6 +112,12 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity,
                             "https://play.google.com/store/apps/details?id=$packageName"
                         )
+                    }
+
+                    aboutAction {
+                        text("Donate")
+                        subText("Spend some money if you want to support developement.")
+                        icon(R.drawable.ic_giftcard)
                     }
                 }
             }
